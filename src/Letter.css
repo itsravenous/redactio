@@ -1,0 +1,10 @@
+.letter {
+  white-space: pre-wrap;
+  font-family: monospace;
+  line-height: 1.5;
+}
+
+.letter input {
+  font-family: monospace;
+  font-size: inherit;
+}
