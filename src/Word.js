@@ -1,6 +1,8 @@
 import Inferno from 'inferno';
 import Component from 'inferno-component';
 
+import './Word.css';
+
 class Word extends Component {
   constructor(props) {
     super(props);
@@ -14,10 +16,12 @@ class Word extends Component {
 
   render() {
     const styles = {
-      backgroundColor: this.state.correct ? 'yellow' : 'white'
+      backgroundColor: this.state.correct ? 'yellow' : 'black',
+      color: this.state.correct ? 'black' : 'white',
+      width: this.props.words[0].length * 0.5 + 'rem'
     };
     return (
-      <input style={styles} type="text" placeholder={this.props.word} onInput={this.handleInput.bind(this)} />
+      <input className="word" style={styles} type="text" placeholder={this.props.word} onInput={this.handleInput.bind(this)} />
     );
   }
 }
