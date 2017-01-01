@@ -10,16 +10,16 @@ import Word from '../Word';
  * @return {JSX}
  */
 function letterToJsx(letter, handler) {
-  const re = /\[[a-z]+\]/gi;
+  const re = /\[[a-z\|]+\]/gi;
   const jsx = [];
   let cursor, result, count = 0;
 
   while(result = re.exec(letter)) {
     let len = result[0].length;
-    let word = result[0].slice(1, len - 1);
+    let words = result[0].slice(1, len - 1);
     jsx.push(<span>{letter.slice(cursor, result.index)}</span>);
     cursor = result.index + len;
-    jsx.push(<Word index={cursor} word={word} onChange={handler} />);
+    jsx.push(<Word index={cursor} words={words.split('|')} onChange={handler} />);
     count++;
   };
   jsx.push(<span>{letter.slice(cursor)}</span>);

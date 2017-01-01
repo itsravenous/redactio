@@ -7,7 +7,7 @@ class Word extends Component {
   }
 
   handleInput(e) {
-    const correct = e.target.value === this.props.word
+    const correct = this.props.words.indexOf(e.target.value) !== -1;
     this.setState({correct});
     if(this.props.onChange) this.props.onChange(this, correct);
   }
