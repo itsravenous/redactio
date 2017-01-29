@@ -3,19 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "inferno-scripts": "0.10.0"
+    "babel-plugin-inferno": "^1.4.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-stage-3": "^6.22.0",
+    "babelify": "^7.3.0",
+    "catw": "^1.0.1",
+    "cssify": "^1.0.3",
+    "pushstate-server": "^2.1.0",
+    "watchify": "^3.9.0"
   },
   "dependencies": {
-    "babel-plugin-inferno": "^1.4.0",
-    "immutability-helper": "^2.0.0",
     "inferno": "^1.0.3",
     "inferno-component": "^1.0.3",
     "node-sha1": "^1.0.1"
   },
   "scripts": {
-    "start": "inferno-scripts start",
-    "build": "inferno-scripts build",
-    "test": "inferno-scripts test --env=jsdom",
-    "eject": "inferno-scripts eject"
+    "build-css": "cat src/*.css > build/bundle.css",
+    "watch-css": "catw src/*.css -o build/bundle.css",
+    "build-js": "browserify src/index.js -v -t babelify -i './src/**/*.css' -o build/bundle.js",
+    "watch-js": "watchify src/index.js -dv -t babelify -t cssify -o build/bundle.js",
+    "dev": "yarn watch-js & yarn watch-css & pushstate-server build"
   }
 }
