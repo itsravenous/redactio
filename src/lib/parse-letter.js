@@ -1,5 +1,6 @@
 'use strict';
 import Inferno from 'inferno';
+import sha1 from 'node-sha1';
 
 import Word from '../Word';
 
@@ -10,6 +11,7 @@ import Word from '../Word';
  * @return {JSX}
  */
 function letterToJsx(letter, handler) {
+  const letterHash = sha1(letter);
   const re = /\[[a-z\|]+\]/gi;
   const jsx = [];
   let cursor, result, count = 0;
@@ -19,7 +21,9 @@ function letterToJsx(letter, handler) {
     let words = result[0].slice(1, len - 1);
     jsx.push(<span>{letter.slice(cursor, result.index)}</span>);
     cursor = result.index + len;
-    jsx.push(<Word index={cursor} words={words.split('|')} onChange={handler} />);
+    // Unique key so that completion status isn't carried thru from previous letter
+    const key = letterHash + cursor;
+    jsx.push(<Word key={key} index={cursor} words={words.split('|')} onChange={handler} />);
     count++;
   };
   jsx.push(<span>{letter.slice(cursor)}</span>);
